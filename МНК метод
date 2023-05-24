@@ -1,0 +1,39 @@
+class LeastSquares {
+    private $xData;  
+    private $yData;
+
+    public function __construct(array $xData, array $yData) {
+        $this->xData = $xData;
+        $this->yData = $yData;
+    }
+
+    public function fit() {
+        $n = count($this->xData);
+
+        $sumX = array_sum($this->xData);
+        $sumY = array_sum($this->yData);
+        $sumX2 = 0.0;
+        $sumXY = 0.0;
+
+        for ($i = 0; $i < $n; $i++) {
+            $sumX2 += $this->xData[$i] * $this->xData[$i];
+            $sumXY += $this->xData[$i] * $this->yData[$i];
+        }
+
+        $denominator = $n * $sumX2 - $sumX * $sumX;
+        $a = ($n * $sumXY - $sumX * $sumY) / $denominator;
+        $b = ($sumX2 * $sumY - $sumX * $sumXY) / $denominator;
+
+        return [$a, $b];
+    }
+}
+
+$xData = [1, 2, 3, 4, 5];
+$yData = [1, 3, 5, 7, 9];
+
+$ls = new LeastSquares($xData, $yData);
+$coefficients = $ls->fit();
+$a = $coefficients[0];
+$b = $coefficients[1];
+
+echo "Уравнение: y = $a * x + $b";
