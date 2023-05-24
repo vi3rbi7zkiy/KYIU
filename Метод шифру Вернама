@@ -1,0 +1,23 @@
+function vernamEncrypt($message, $key) {
+    $encryptedMessage = '';
+    $messageLength = strlen($message);
+
+    for ($i = 0; $i < $messageLength; $i++) {
+        $encryptedChar = $message[$i] ^ $key[$i];
+        $encryptedMessage .= chr($encryptedChar);
+    }
+
+    return $encryptedMessage;
+}
+
+function vernamDecrypt($encryptedMessage, $key) {
+    $decryptedMessage = '';
+    $messageLength = strlen($encryptedMessage);
+
+    for ($i = 0; $i < $messageLength; $i++) {
+        $decryptedChar = ord($encryptedMessage[$i]) ^ $key[$i]; 
+        $decryptedMessage .= chr($decryptedChar);
+    }
+
+    return $decryptedMessage;
+}
